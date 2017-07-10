@@ -69,7 +69,7 @@
     <Compile Include="Model\Package.cs" />
     <Compile Include="Model\SyntaxVersion.cs" />
     <Compile Include="Parser\Parser.cs" />
-    <Compile Include="Parser\TokenStream.cs" />
+    <Compile Include="Lexer\TokenStream.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

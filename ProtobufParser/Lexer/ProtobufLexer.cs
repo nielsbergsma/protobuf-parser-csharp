@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProtobufParser.Lexer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace ProtobufParser.Lexer
 {
     public static class ProtobufLexer
     {
-        public static Lexer Lex(string input)
+        public static TokenStream Lex(string input)
         {
             //replace \r and tabs by spaces
             input = input.Replace("\r", "").Replace("\t", "    ");
@@ -28,7 +29,7 @@ namespace ProtobufParser.Lexer
             lexer = new WhitespaceIgnoreLexer(lexer);
             lexer = new CommentIgnoreLexer(lexer);
 
-            return lexer;
+            return new TokenStream(lexer);
         }
     }
 }

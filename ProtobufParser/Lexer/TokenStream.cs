@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProtobufParser.Parser
+namespace ProtobufParser.Lexer
 {
     public class TokenStream
     {
         private readonly Token[] tokens;
 
-        public TokenStream(Lexer.Lexer lexer)
+        public TokenStream(Lexer lexer)
         {
             var tokens = new List<Token>();
             for (var token = lexer.Next(); token.HasValue; token = lexer.Next())
