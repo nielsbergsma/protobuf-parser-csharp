@@ -95,7 +95,8 @@ namespace ProtobufParser.Parser
             { 
                 //field
                 if (stream.IsAt(position, TokenType.Identifier, TokenType.Identifier, TokenType.Assign, TokenType.Number) 
-                    || stream.IsAt(position, TokenType.Repeated, TokenType.Identifier, TokenType.Identifier, TokenType.Assign, TokenType.Number))
+                    || stream.IsAt(position, TokenType.Repeated, TokenType.Identifier, TokenType.Identifier, TokenType.Assign, TokenType.Number)
+                    || stream.IsAt(position, TokenType.Map, TokenType.LeftAngleBracket, TokenType.Identifier, TokenType.Comma, TokenType.Identifier, TokenType.RightAngleBracket, TokenType.Identifier, TokenType.Assign, TokenType.Number))
                 {
                     var field = default(Field);
                     position = ParseField(stream, position, out field);
@@ -171,6 +172,14 @@ namespace ProtobufParser.Parser
             }
 
             var type = stream.At(position).Content;
+            if (stream.IsAt(position, TokenType.Map))
+            {
+                var mapKey = stream.At(position + 2).Content;
+                var mapValue = stream.At(position + 4).Content;
+                type = $"{mapKey}:{mapValue}";
+                position += 5;
+            }
+
             var name = stream.At(position + 1).Content;
             var tag = int.Parse(stream.At(position + 3).Content);
             var options = new List<Option>();

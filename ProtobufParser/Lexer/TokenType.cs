@@ -23,6 +23,7 @@ namespace ProtobufParser.Lexer
         LeftAngleBracket,
         RightAngleBracket,
         Semicolon,
+        Comma,
         Assign,
 
         /* identifier */
@@ -45,6 +46,7 @@ namespace ProtobufParser.Lexer
         Public,
         Repeated,
         OneOf,
+        Map,
 
         /* lexer internal */
         SingleLineCommentStart,

@@ -13,6 +13,7 @@ namespace ProtobufParser.Lexer
             new Dictionary<string, TokenType>
             {
                 { "=", TokenType.Assign },
+                { ",", TokenType.Comma },
                 { ";", TokenType.Semicolon },
                 { "{", TokenType.LeftCurlyBrace },
                 { "}", TokenType.RightCurlyBrace },

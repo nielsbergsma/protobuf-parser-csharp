@@ -23,6 +23,7 @@ namespace ProtobufParser.Lexer
             { "oneof", TokenType.OneOf },
             { "true", TokenType.True },
             { "false", TokenType.False },
+            { "map", TokenType.Map },
         };
         #endregion
 
