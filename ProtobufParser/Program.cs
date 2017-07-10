@@ -15,13 +15,14 @@ namespace ProtobufParser
         {
             var source = File.ReadAllText(@"c:\\temp\\test.proto");
             var tokens = ProtobufLexer.Lex(source);
-
-            for (var t = 0; t < tokens.Length; t++)
-            {
-                Console.WriteLine($"Token [{t.ToString("000")}][{tokens.At(t).Type}] {tokens.At(t).Content}");
-            }
-
             var definition = Parser.Parser.ParseDefinition(tokens);
+
+            //for (var t = 0; t < tokens.Length; t++)
+            //{
+            //    Console.WriteLine($"Token [{t.ToString("000")}][{tokens.At(t).Type}] {tokens.At(t).Content}");
+            //}
+
+
         }
     }
 }
