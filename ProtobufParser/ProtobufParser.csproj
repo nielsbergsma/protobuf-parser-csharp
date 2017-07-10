@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4F592F33-CC1E-4CFA-A5F1-412C3A7C33AD}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProtobufParser</RootNamespace>
+    <AssemblyName>ProtobufParser</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Lexer\CommentIgnoreFilter.cs" />
+    <Compile Include="Lexer\IdentifierLexer.cs" />
+    <Compile Include="Lexer\KeywordLexer.cs" />
+    <Compile Include="Lexer\Lexer.cs" />
+    <Compile Include="Lexer\LineLexer.cs" />
+    <Compile Include="Lexer\NumberLexer.cs" />
+    <Compile Include="Lexer\ProtobufLexer.cs" />
+    <Compile Include="Lexer\SingleLineCommentLexer.cs" />
+    <Compile Include="Lexer\SplitLexer.cs" />
+    <Compile Include="Lexer\StringLexer.cs" />
+    <Compile Include="Lexer\SymbolLexer.cs" />
+    <Compile Include="Lexer\Token.cs" />
+    <Compile Include="Lexer\TokenSplitResult.cs" />
+    <Compile Include="Lexer\TokenType.cs" />
+    <Compile Include="Lexer\WhitespaceIgnoreFilter.cs" />
+    <Compile Include="Maybe.cs" />
+    <Compile Include="Model\Definition.cs" />
+    <Compile Include="Model\Enumeration.cs" />
+    <Compile Include="Model\EnumerationValue.cs" />
+    <Compile Include="Model\Field.cs" />
+    <Compile Include="Model\Import.cs" />
+    <Compile Include="Model\Message.cs" />
+    <Compile Include="Model\Option.cs" />
+    <Compile Include="Model\Package.cs" />
+    <Compile Include="Model\SyntaxVersion.cs" />
+    <Compile Include="Parser\Parser.cs" />
+    <Compile Include="Parser\TokenStream.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
