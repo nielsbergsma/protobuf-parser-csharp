@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProtobufParser.Model
+namespace ProtobufParser.Core
 {
     public class Import
     {

@@ -1,5 +1,5 @@
 ﻿using ProtobufParser.Lexer;
-using ProtobufParser.Model;
+using ProtobufParser.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;

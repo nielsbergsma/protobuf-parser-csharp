@@ -4,27 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProtobufParser.Model
+namespace ProtobufParser.Core
 {
-    public class EnumerationValue
+    public class Package
     {
         private readonly string name;
-        private readonly int value;
 
-        public EnumerationValue(string name, int value)
+        public static Package Default
+        {
+            get { return new Package("<empty>"); }
+        }
+
+        public Package(string name)
         {
             this.name = name;
-            this.value = value;
         }
 
         public string Name
         {
             get { return name; }
-        }
-
-        public int Value
-        {
-            get { return value; }
         }
 
         public override int GetHashCode()
@@ -34,7 +32,7 @@ namespace ProtobufParser.Model
 
         public override bool Equals(object obj)
         {
-            var other = obj as EnumerationValue;
+            var other = obj as Package;
 
             return other != null
                 && other.name == name;
