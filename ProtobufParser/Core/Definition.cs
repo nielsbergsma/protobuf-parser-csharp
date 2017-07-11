@@ -22,7 +22,7 @@ namespace ProtobufParser.Core
             this.messages = new List<Message>();
             this.enumerations = new List<Enumeration>();
             this.options = new List<Option>();
-            this.package = Package.NotDefined;
+            this.package = Package.Undefined;
         }
 
         public SyntaxVersion SyntaxVersion

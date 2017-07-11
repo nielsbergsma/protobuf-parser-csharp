@@ -140,7 +140,7 @@ namespace ProtobufParser
 
         public void Visit(Package package)
         {
-            if (!package.Equals(Package.NotDefined))
+            if (!package.Equals(Package.Undefined))
             {
                 output.AppendLine($"module {CamelCase(package.Name)} exposing (..)");
             }

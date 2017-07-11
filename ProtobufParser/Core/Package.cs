@@ -10,14 +10,14 @@ namespace ProtobufParser.Core
     {
         private readonly string name;
 
-        public static Package NotDefined
-        {
-            get { return new Package("<empty>"); }
-        }
-
         public Package(string name)
         {
             this.name = name;
+        }
+
+        public static Package Undefined
+        {
+            get { return new Package("<undefined>"); }
         }
 
         public string Name
