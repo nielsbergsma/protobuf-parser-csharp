@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProtobufParser
 {
-    class Program
+    public class UsageExample
     {
         static void Main(string[] args)
         {
@@ -17,10 +17,10 @@ namespace ProtobufParser
             var tokens = ProtobufLexer.Lex(source);
             var definition = Parser.Parser.ParseDefinition(tokens);
 
-            //for (var t = 0; t < tokens.Length; t++)
-            //{
-            //    Console.WriteLine($"Token [{t.ToString("000")}][{tokens.At(t).Type}] {tokens.At(t).Content}");
-            //}
+            for (var t = 0; t < tokens.Length; t++)
+            {
+                Console.WriteLine($"Token [{t.ToString("000")}][{tokens.At(t).Type}] {tokens.At(t).Content}");
+            }
 
             var generator = new ElmTypeGenerator();
             var code = generator.Run(definition, "Details");
