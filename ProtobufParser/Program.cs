@@ -13,7 +13,7 @@ namespace ProtobufParser
     {
         static void Main(string[] args)
         {
-            var source = File.ReadAllText(@"c:\\temp\\test.proto");
+            var source = File.ReadAllText(@"c:\\temp\\messages.proto");
             var tokens = ProtobufLexer.Lex(source);
             var definition = Parser.Parser.ParseDefinition(tokens);
 
@@ -22,7 +22,8 @@ namespace ProtobufParser
             //    Console.WriteLine($"Token [{t.ToString("000")}][{tokens.At(t).Type}] {tokens.At(t).Content}");
             //}
 
-
+            var generator = new ElmTypeGenerator();
+            var code = generator.Run(definition, "Details");
         }
     }
 }

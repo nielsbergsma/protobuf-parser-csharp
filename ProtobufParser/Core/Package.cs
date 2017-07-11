@@ -10,7 +10,7 @@ namespace ProtobufParser.Core
     {
         private readonly string name;
 
-        public static Package Default
+        public static Package NotDefined
         {
             get { return new Package("<empty>"); }
         }

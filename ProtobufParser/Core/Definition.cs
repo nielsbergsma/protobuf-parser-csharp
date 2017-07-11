@@ -17,12 +17,12 @@ namespace ProtobufParser.Core
 
         public Definition()
         {
-            syntaxVersion = SyntaxVersion.Proto3;
-            imports = new List<Import>();
-            messages = new List<Message>();
-            enumerations = new List<Enumeration>();
-            options = new List<Option>();
-            package = Package.Default;
+            this.syntaxVersion = SyntaxVersion.Proto3;
+            this.imports = new List<Import>();
+            this.messages = new List<Message>();
+            this.enumerations = new List<Enumeration>();
+            this.options = new List<Option>();
+            this.package = Package.NotDefined;
         }
 
         public SyntaxVersion SyntaxVersion
