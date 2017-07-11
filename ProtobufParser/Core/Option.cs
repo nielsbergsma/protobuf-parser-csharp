@@ -41,5 +41,10 @@ namespace ProtobufParser.Core
             hash = (hash * 397) ^ value.GetHashCode();
             return hash;
         }
+
+        public void Accept(Visitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 }

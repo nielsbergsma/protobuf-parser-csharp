@@ -42,5 +42,10 @@ namespace ProtobufParser.Core
                 && other.path == path
                 && other.@public == @public;
         }
+
+        public void Accept(Visitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 }

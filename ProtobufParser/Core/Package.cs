@@ -37,5 +37,10 @@ namespace ProtobufParser.Core
             return other != null
                 && other.name == name;
         }
+
+        public void Accept(Visitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 }

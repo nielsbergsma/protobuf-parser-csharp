@@ -79,5 +79,10 @@ namespace ProtobufParser.Core
         {
             enumerations.Add(enumeration);
         }
+
+        public void Accept(Visitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 }
