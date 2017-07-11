@@ -25,48 +25,22 @@ namespace ProtobufParser.Parser
             //syntax
             if (stream.IsAt(position, TokenType.Syntax, TokenType.Assign, TokenType.String))
             {
-                var version = stream.At(position + 2).Content;
-                if (version != "proto3")
-                {
-                    throw new NotSupportedException("Only proto3 syntax is supported");
-                }
-
-                position = stream.SkipToNextExpression(position);
+                position = ParseSyntax(stream, position, definition);
             }
             //imports
             else if (stream.IsAt(position, TokenType.Import))
             {
-                var @public = stream.IsAt(position + 1, TokenType.Public);
-                var path = stream.At(position + 1).Content;
-
-                if (@public)
-                {
-                    path = stream.At(position + 2).Content;
-                }
-
-                var import = new Import(path, @public);
-                definition.Add(import);
-
-                position = stream.SkipToNextExpression(position);
+                position = ParseImport(stream, position, definition);
             }
             //package
             else if (stream.IsAt(position, TokenType.Package, TokenType.Identifier))
             {
-                var name = stream.At(position + 1).Content;
-                var package = new Package(name);
-                definition.Set(package);
-
-                position = stream.SkipToNextExpression(position);
+                position = ParsePackage(stream, position, definition);
             }
             //option
             else if (stream.IsAt(position, TokenType.Option, TokenType.Identifier, TokenType.Assign))
             {
-                var name = stream.At(position + 1).Content;
-                var value = stream.At(position + 3).Content;
-                var option = new Option(name, value);
-                definition.Set(option);
-
-                position = stream.SkipToNextExpression(position);
+                position = ParseOption(stream, position, definition);
             }
             //enum
             else if (stream.IsAt(position, TokenType.Enum, TokenType.Identifier, TokenType.LeftCurlyBrace))
@@ -84,6 +58,52 @@ namespace ProtobufParser.Parser
             }
             
             return position;
+        }
+
+        public static int ParseSyntax(TokenStream stream, int position, Definition definition)
+        {
+            var version = stream.At(position + 2).Content;
+            if (version != "proto3")
+            {
+                throw new NotSupportedException("Only proto3 syntax is supported");
+            }
+
+            return stream.SkipToNextExpression(position);
+        }
+
+        public static int ParseImport(TokenStream stream, int position, Definition definition)
+        {
+            var @public = stream.IsAt(position + 1, TokenType.Public);
+            var path = stream.At(position + 1).Content;
+
+            if (@public)
+            {
+                path = stream.At(position + 2).Content;
+            }
+
+            var import = new Import(path, @public);
+            definition.Add(import);
+
+            return stream.SkipToNextExpression(position);
+        }
+
+        public static int ParsePackage(TokenStream stream, int position, Definition definition)
+        {
+            var name = stream.At(position + 1).Content;
+            var package = new Package(name);
+            definition.Set(package);
+
+            return stream.SkipToNextExpression(position);
+        }
+
+        public static int ParseOption(TokenStream stream, int position, Definition definition)
+        {
+            var name = stream.At(position + 1).Content;
+            var value = stream.At(position + 3).Content;
+            var option = new Option(name, value);
+            definition.Set(option);
+
+            return stream.SkipToNextExpression(position);
         }
 
         public static int ParseMessage(TokenStream stream, int position, Definition definition, string parent)
