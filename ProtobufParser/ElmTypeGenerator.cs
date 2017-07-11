@@ -68,10 +68,10 @@ namespace ProtobufParser
             output.AppendLine();
             output.AppendLine();
             output.AppendLine($"value_of_{SnakeCase(enumeration.Name)} v = case v of ");
-            foreach (var value in enumeration.Values.GroupBy(v => v.Value))
+            foreach (var value in enumeration.Values)
             {
                 enumGenerateMode = "ToValue";
-                value.First().Accept(this);
+                value.Accept(this);
             }
             output.AppendLine("  _ -> 0");
 
