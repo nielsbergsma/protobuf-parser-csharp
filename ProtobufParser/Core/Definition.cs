@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -83,6 +84,11 @@ namespace ProtobufParser.Core
         public void Accept(Visitor visitor)
         {
             visitor.Visit(this);
+        }
+
+        public void Decode(string message, Stream stream, RuntimeDecoder decoder)
+        {
+            messages.First(m => m.Name == message).Decode(this, stream, decoder);
         }
     }
 }
