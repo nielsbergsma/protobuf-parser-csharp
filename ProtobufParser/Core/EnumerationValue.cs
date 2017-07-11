@@ -27,6 +27,11 @@ namespace ProtobufParser.Core
             get { return value; }
         }
 
+        public void Accept(Visitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
         public override int GetHashCode()
         {
             return name.GetHashCode();
@@ -38,11 +43,6 @@ namespace ProtobufParser.Core
 
             return other != null
                 && other.name == name;
-        }
-
-        public void Accept(Visitor visitor)
-        {
-            visitor.Visit(this);
         }
     }
 }

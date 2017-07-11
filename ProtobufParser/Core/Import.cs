@@ -27,6 +27,11 @@ namespace ProtobufParser.Core
             get { return @public; }
         }
 
+        public void Accept(Visitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
         public override int GetHashCode()
         {
             var hash = path.GetHashCode();
@@ -41,11 +46,6 @@ namespace ProtobufParser.Core
             return other != null
                 && other.path == path
                 && other.@public == @public;
-        }
-
-        public void Accept(Visitor visitor)
-        {
-            visitor.Visit(this);
         }
     }
 }

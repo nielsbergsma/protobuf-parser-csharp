@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\RuntimeDecoder.cs" />
     <Compile Include="Core\Visitor.cs" />
     <Compile Include="ElmTypeGenerator.cs" />
     <Compile Include="Lexer\CommentIgnoreFilter.cs" />

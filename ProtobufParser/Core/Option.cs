@@ -27,12 +27,9 @@ namespace ProtobufParser.Core
             get { return value; }
         }
 
-        public override bool Equals(object obj)
+        public void Accept(Visitor visitor)
         {
-            var other = obj as Option;
-
-            return other.name == name
-                && other.value == value;
+            visitor.Visit(this);
         }
 
         public override int GetHashCode()
@@ -42,9 +39,12 @@ namespace ProtobufParser.Core
             return hash;
         }
 
-        public void Accept(Visitor visitor)
+        public override bool Equals(object obj)
         {
-            visitor.Visit(this);
+            var other = obj as Option;
+
+            return other.name == name
+                && other.value == value;
         }
     }
 }

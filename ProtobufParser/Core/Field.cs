@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,6 +49,16 @@ namespace ProtobufParser.Core
             get { return options; }
         }
 
+        public void Accept(Visitor visitor)
+        {
+            visitor.Visit(this);
+        }
+
+        public void Decode(Definition definition, Stream stream, RuntimeDecoder decoder)
+        {
+
+        }
+
         public override int GetHashCode()
         {
             return name.GetHashCode();
@@ -59,11 +70,6 @@ namespace ProtobufParser.Core
 
             return other != null
                 && other.name == name;
-        }
-
-        public void Accept(Visitor visitor)
-        {
-            visitor.Visit(this);
         }
     }
 }
