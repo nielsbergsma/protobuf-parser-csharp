@@ -34,9 +34,12 @@ namespace ProtobufParser.Core
 
         public override int GetHashCode()
         {
-            var hash = path.GetHashCode();
-            hash = (hash * 397) ^ @public.GetHashCode();
-            return hash;
+            unchecked
+            {
+                var hash = path.GetHashCode();
+                hash = (hash * 397) ^ @public.GetHashCode();
+                return hash;
+            }
         }
 
         public override bool Equals(object obj)
