@@ -19,7 +19,7 @@ namespace ProtobufParser.Encoding
 
             type = (FieldType)(header & 7);
             field = header >> 3;
-            return offset + read;
+            return read;
         }
 
         public static int ReadVarint(byte[] data, int offset, out int value)
@@ -36,47 +36,47 @@ namespace ProtobufParser.Encoding
                 value = (value << 7) | (data[offset + index]) & 0x7F;
             }
 
-            return offset + size + 1;
+            return size + 1;
         }
 
         public static int ReadString(byte[] data, int offset, out string value)
         {
             var length = default(int);
-            offset += ReadVarint(data, offset, out length);
+            var read = ReadVarint(data, offset, out length);
 
             if (length == 0)
             {
                 value = "";
             }
 
-            var available = data.Length - offset;
+            var available = (data.Length - offset) - read;
             if (available < length)
             {
                 throw new EndOfStreamException();
             }
 
-            value = System.Text.Encoding.UTF8.GetString(data, offset, length);
-            return offset + length;
+            value = System.Text.Encoding.UTF8.GetString(data, offset + read, length);
+            return read + length;
         }
 
         public static int ReadBytes(byte[] data, int offset, out byte[] value)
         {
             var length = default(int);
-            offset += ReadVarint(data, offset, out length);
-            value = new byte[length];
-
-            var available = data.Length - offset;
+            var read = ReadVarint(data, offset, out length);
+            
+            var available = (data.Length - offset) - read;
             if (available < length)
             {
                 throw new EndOfStreamException();
             }
 
+            value = new byte[length];
             for (var b = 0; b < length; b++)
             {
                 value[b] = data[offset + b];
             }
 
-            return offset + length;
+            return read + length;
         }
 
         public static int ReadDouble(byte[] data, int offset, out double value)
@@ -134,7 +134,7 @@ namespace ProtobufParser.Encoding
                     throw new NotSupportedException();
             }
 
-            return offset + read;
+            return read;
         }
     }
 }
