@@ -49,6 +49,7 @@
     <Compile Include="Core\RuntimeDecoder.cs" />
     <Compile Include="Core\Visitor.cs" />
     <Compile Include="ElmTypeGenerator.cs" />
+    <Compile Include="Encoding\EndOfFileException.cs" />
     <Compile Include="Encoding\FieldType.cs" />
     <Compile Include="Lexer\CommentIgnoreFilter.cs" />
     <Compile Include="Lexer\IdentifierLexer.cs" />

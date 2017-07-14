@@ -14,7 +14,7 @@ namespace ProtobufParser.Encoding
             var read = ReadVarint(data, offset, out header);
             if (read == 0)
             {
-                throw new EndOfFile();
+                throw new EndOfFileException();
             }
 
             type = (FieldType)(header & 7);
@@ -24,21 +24,19 @@ namespace ProtobufParser.Encoding
 
         public static int ReadVarint(byte[] data, int offset, out int value)
         {
-            var read = 0;
-            var length = data.Length;
-
-            while (offset + read < length && (data[offset + read] & 0x80) == 0x80 && read < 9)
+            var size = 0;
+            while (offset + size < data.Length && (data[offset + size] & 0x80) == 0x80 && size < 9)
             {
-                read++;
+                size++;
             }
 
             value = 0;
-            for (var index = read; index >= 0; index--)
+            for (var index = size; index >= 0; index--)
             {
                 value = (value << 7) | (data[offset + index]) & 0x7F;
             }
 
-            return offset + read + 1;
+            return offset + size + 1;
         }
 
         public static int ReadString(byte[] data, int offset, out string value)
@@ -54,11 +52,11 @@ namespace ProtobufParser.Encoding
             var available = data.Length - offset;
             if (available < length)
             {
-                throw new EndOfFile();
+                throw new EndOfFileException();
             }
 
             value = System.Text.Encoding.UTF8.GetString(data, offset, length);
-            return (int) length;
+            return length;
         }
 
         public static int SkipField(byte[] data, int offset)
@@ -93,10 +91,5 @@ namespace ProtobufParser.Encoding
 
             return offset + read;
         }
-    }
-
-    public class EndOfFile : Exception
-    {
-
     }
 }
