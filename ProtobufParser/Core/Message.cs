@@ -45,18 +45,17 @@ namespace ProtobufParser.Core
 
                 if (header > 0 && field != null)
                 {
+                    if (!IsExpectedType(field, type))
+                    {
+                        throw new IncompatibleType($"Expected field {field.Name} to be of type {type}");
+                    }
+
                     switch(field.Type)
                     {
                         case "string":
                             var stringValue = default(string);
                             offset += Reader.ReadString(data, offset + header, out stringValue);
                             builder.Field(field.Name, stringValue);
-                            break;
-
-                        case "bool":
-                            var boolValue = default(bool);
-                            offset += Reader.ReadBool(data, offset + header, out boolValue);
-                            builder.Field(field.Name, boolValue);
                             break;
 
                         case "bytes":
@@ -86,9 +85,26 @@ namespace ProtobufParser.Core
             }
         }
 
-        private void DecodeField(Field field, FieldType type, ObjectBuilder builder)
+        private bool IsExpectedType(Field field, FieldType type)
         {
+            switch (field.Type)
+            {
+                case "string":
+                case "bytes":
+                    return type == FieldType.LengthDelimited;
 
+                case "int32":
+                    return type == FieldType.Number32bit;
+
+                case "int64":
+                    return type == FieldType.Number64bit;
+
+                case "varint":
+                    return type == FieldType.Varint;
+
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
         public override int GetHashCode()
