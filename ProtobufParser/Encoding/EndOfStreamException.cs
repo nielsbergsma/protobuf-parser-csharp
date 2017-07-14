@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProtobufParser.Encoding
 {
-    public class EndOfFileException : Exception
+    public class EndOfStreamException : Exception
     {
 
     }

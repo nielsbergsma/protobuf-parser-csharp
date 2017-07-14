@@ -14,11 +14,11 @@ namespace ProtobufParser.Encoding
             var read = ReadVarint(data, offset, out header);
             if (read == 0)
             {
-                throw new EndOfFileException();
+                throw new EndOfStreamException();
             }
 
             type = (FieldType)(header & 7);
-            field = (int)header >> 3;
+            field = header >> 3;
             return offset + read;
         }
 
@@ -52,7 +52,7 @@ namespace ProtobufParser.Encoding
             var available = data.Length - offset;
             if (available < length)
             {
-                throw new EndOfFileException();
+                throw new EndOfStreamException();
             }
 
             value = System.Text.Encoding.UTF8.GetString(data, offset, length);
