@@ -1,4 +1,5 @@
-﻿using ProtobufParser.Lexer;
+﻿using ProtobufParser.Encoding;
+using ProtobufParser.Lexer;
 using ProtobufParser.Parser;
 using System;
 using System.Collections.Generic;
@@ -13,17 +14,34 @@ namespace ProtobufParser
     {
         static void Main(string[] args)
         {
-            var source = File.ReadAllText(@"c:\\temp\\messages.proto");
-            var tokens = ProtobufLexer.Lex(source);
-            var definition = Parser.Parser.ParseDefinition(tokens);
+            var data1 = new byte[] { 0xAC, 0x02 };
+            var result1 = default(int);
+            Reader.ReadVarint(data1, 0, out result1);
 
-            for (var t = 0; t < tokens.Length; t++)
-            {
-                Console.WriteLine($"Token [{t.ToString("000")}][{tokens.At(t).Type}] {tokens.At(t).Content}");
-            }
 
-            var generator = new ElmTypeGenerator();
-            var code = generator.Run(definition, "Details");
+            var position = 0;
+            var data = new byte[] { 0x08, 0x96, 0x01 };
+
+            var type = default(FieldType);
+            var field = default(int);
+            position += Reader.ReadHeader(data, 0, out type, out field);
+
+
+            var result = default(int);
+            var read = Reader.ReadVarint(data, position, out result);
+
+
+            //var source = File.ReadAllText(@"c:\\temp\\messages.proto");
+            //var tokens = ProtobufLexer.Lex(source);
+            //var definition = Parser.Parser.ParseDefinition(tokens);
+
+            //for (var t = 0; t < tokens.Length; t++)
+            //{
+            //    Console.WriteLine($"Token [{t.ToString("000")}][{tokens.At(t).Type}] {tokens.At(t).Content}");
+            //}
+
+            //var generator = new ElmTypeGenerator();
+            //var code = generator.Run(definition, "Details");
         }
     }
 }

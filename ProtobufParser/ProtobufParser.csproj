@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4F592F33-CC1E-4CFA-A5F1-412C3A7C33AD}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ProtobufParser</RootNamespace>
     <AssemblyName>ProtobufParser</AssemblyName>
@@ -49,6 +49,7 @@
     <Compile Include="Core\RuntimeDecoder.cs" />
     <Compile Include="Core\Visitor.cs" />
     <Compile Include="ElmTypeGenerator.cs" />
+    <Compile Include="Encoding\FieldType.cs" />
     <Compile Include="Lexer\CommentIgnoreFilter.cs" />
     <Compile Include="Lexer\IdentifierLexer.cs" />
     <Compile Include="Lexer\KeywordLexer.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Core\SyntaxVersion.cs" />
     <Compile Include="Parser\Parser.cs" />
     <Compile Include="Lexer\TokenStream.cs" />
+    <Compile Include="Encoding\Reader.cs" />
     <Compile Include="UsageExample.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
