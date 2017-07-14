@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProtobufParser.Core
 {
-    public class Definition
+    public class Schema
     {
         private readonly SyntaxVersion syntaxVersion;
         private readonly List<Import> imports;
@@ -16,7 +16,7 @@ namespace ProtobufParser.Core
         private readonly List<Option> options;
         private Package package;
 
-        public Definition()
+        public Schema()
         {
             this.syntaxVersion = SyntaxVersion.Proto3;
             this.imports = new List<Import>();
@@ -86,9 +86,9 @@ namespace ProtobufParser.Core
             visitor.Visit(this);
         }
 
-        public void Decode(string message, Stream stream, RuntimeDecoder decoder)
+        public void Decode(string message, byte[] data, int offset, ObjectBuilder builder)
         {
-            messages.First(m => m.Name == message).Decode(this, stream, decoder);
+            messages.First(m => m.Name == message).Decode(this, data, offset, builder);
         }
     }
 }

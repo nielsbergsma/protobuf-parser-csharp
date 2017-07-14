@@ -8,7 +8,7 @@ namespace ProtobufParser.Core
 {
     public interface Visitor
     {
-        void Visit(Definition definition);
+        void Visit(Schema schema);
         void Visit(Package package);
         void Visit(Import import);
         void Visit(Option option);

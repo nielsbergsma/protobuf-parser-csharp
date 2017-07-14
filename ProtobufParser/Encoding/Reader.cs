@@ -56,7 +56,52 @@ namespace ProtobufParser.Encoding
             }
 
             value = System.Text.Encoding.UTF8.GetString(data, offset, length);
-            return length;
+            return offset + length;
+        }
+
+        public static int ReadBytes(byte[] data, int offset, out byte[] value)
+        {
+            var length = default(int);
+            offset += ReadVarint(data, offset, out length);
+            value = new byte[length];
+
+            var available = data.Length - offset;
+            if (available < length)
+            {
+                throw new EndOfStreamException();
+            }
+
+            for (var b = 0; b < length; b++)
+            {
+                value[b] = data[offset + b];
+            }
+
+            return offset + length;
+        }
+
+        public static int ReadDouble(byte[] data, int offset, out double value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static int ReadFloat(byte[] data, int offset, out float value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static int ReadInt32(byte[] data, int offset, out int value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static int ReadInt64(byte[] data, int offset, out long value)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static int ReadBool(byte[] data, int offset, out bool value)
+        {
+            throw new NotImplementedException();
         }
 
         public static int SkipField(byte[] data, int offset)

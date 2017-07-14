@@ -10,9 +10,9 @@ namespace ProtobufParser.Parser
 {
     public static class Parser
     {
-        public static Definition ParseDefinition(TokenStream stream)
+        public static Schema ParseSchema(TokenStream stream)
         {
-            var definition = new Definition();
+            var definition = new Schema();
             for (var position = 0; position < stream.Length; )
             {
                 position = ParseLine(stream, position, definition);
@@ -20,7 +20,7 @@ namespace ProtobufParser.Parser
             return definition;
         }
 
-        public static int ParseLine(TokenStream stream, int position, Definition definition)
+        public static int ParseLine(TokenStream stream, int position, Schema definition)
         {
             //syntax
             if (stream.IsAt(position, TokenType.Syntax, TokenType.Assign, TokenType.String))
@@ -60,7 +60,7 @@ namespace ProtobufParser.Parser
             return position;
         }
 
-        public static int ParseSyntax(TokenStream stream, int position, Definition definition)
+        public static int ParseSyntax(TokenStream stream, int position, Schema definition)
         {
             var version = stream.At(position + 2).Content;
             if (version != "proto3")
@@ -71,7 +71,7 @@ namespace ProtobufParser.Parser
             return stream.SkipToNextExpression(position);
         }
 
-        public static int ParseImport(TokenStream stream, int position, Definition definition)
+        public static int ParseImport(TokenStream stream, int position, Schema definition)
         {
             var @public = stream.IsAt(position + 1, TokenType.Public);
             var path = stream.At(position + 1).Content;
@@ -87,7 +87,7 @@ namespace ProtobufParser.Parser
             return stream.SkipToNextExpression(position);
         }
 
-        public static int ParsePackage(TokenStream stream, int position, Definition definition)
+        public static int ParsePackage(TokenStream stream, int position, Schema definition)
         {
             var name = stream.At(position + 1).Content;
             var package = new Package(name);
@@ -96,7 +96,7 @@ namespace ProtobufParser.Parser
             return stream.SkipToNextExpression(position);
         }
 
-        public static int ParseOption(TokenStream stream, int position, Definition definition)
+        public static int ParseOption(TokenStream stream, int position, Schema definition)
         {
             var name = stream.At(position + 1).Content;
             var value = stream.At(position + 3).Content;
@@ -106,7 +106,7 @@ namespace ProtobufParser.Parser
             return stream.SkipToNextExpression(position);
         }
 
-        public static int ParseMessage(TokenStream stream, int position, Definition definition, string parent)
+        public static int ParseMessage(TokenStream stream, int position, Schema definition, string parent)
         {
             var name = parent + stream.At(position + 1).Content;
             var fields = new List<Field>();
@@ -151,7 +151,7 @@ namespace ProtobufParser.Parser
             return position + 1;
         }
         
-        public static int ParseEnumeration(TokenStream stream, int position, Definition definition, string parent)
+        public static int ParseEnumeration(TokenStream stream, int position, Schema definition, string parent)
         {
             var name = parent + stream.At(position + 1).Content;
             var options = new List<Option>();

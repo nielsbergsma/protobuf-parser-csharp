@@ -11,7 +11,7 @@ namespace ProtobufParser
     public class ElmTypeGenerator : Visitor
     {
         private readonly StringBuilder output;
-        private Definition definition;
+        private Schema schema;
         private string messageNamePostfix;
 
         private int itemIndex;
@@ -23,17 +23,17 @@ namespace ProtobufParser
             output = new StringBuilder();
         }
 
-        public string Run(Definition definition, string messageNamePostfix = "")
+        public string Run(Schema schema, string messageNamePostfix = "")
         {
-            this.definition = definition;
+            this.schema = schema;
             this.messageNamePostfix = CamelCase(messageNamePostfix);
 
             output.Clear();
-            definition.Accept(this);
+            schema.Accept(this);
             return output.ToString();
         }
 
-        public void Visit(Definition definition)
+        public void Visit(Schema definition)
         {
             definition.Package.Accept(this);
 
@@ -235,7 +235,7 @@ namespace ProtobufParser
 
         private bool IsEnumeration(string protobufType)
         {
-            return definition.Enumerations.Any(e => e.Name == protobufType || e.Name.EndsWith("." + protobufType));
+            return schema.Enumerations.Any(e => e.Name == protobufType || e.Name.EndsWith("." + protobufType));
         }
     }
 }

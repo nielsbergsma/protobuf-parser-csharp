@@ -54,7 +54,7 @@ namespace ProtobufParser.Core
             visitor.Visit(this);
         }
 
-        public void Decode(Definition definition, Stream stream, RuntimeDecoder decoder)
+        public void Decode(Schema definition, Stream stream, ObjectBuilder decoder)
         {
 
         }
