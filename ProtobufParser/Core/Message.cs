@@ -34,7 +34,7 @@ namespace ProtobufParser.Core
             visitor.Visit(this);
         }
 
-        public void Decode(Schema schema, byte[] data, int offset, ObjectBuilder builder)
+        public void Unmarshal(Schema schema, byte[] data, int offset, ObjectBuilder builder)
         {
             for (var endOfStream = false; !endOfStream;)
             {
@@ -54,34 +54,35 @@ namespace ProtobufParser.Core
                     {
                         case "string":
                             var stringValue = default(string);
-                            offset += Reader.ReadString(data, offset + header, out stringValue);
+                            offset += header;
+                            offset += Reader.ReadString(data, offset, out stringValue);
                             builder.Field(field.Name, stringValue);
                             break;
 
                         case "bytes":
                             var bytesValue = default(byte[]);
-                            offset += Reader.ReadBytes(data, offset + header, out bytesValue);
+                            offset += header;
+                            offset += Reader.ReadBytes(data, offset, out bytesValue);
                             builder.Field(field.Name, bytesValue);
                             break;
 
                         case "int32":
                             var int32Value = default(int);
-                            offset += Reader.ReadInt32(data, offset + header, out int32Value);
+                            offset += header;
+                            offset += Reader.ReadVarint(data, offset, out int32Value);
                             builder.Field(field.Name, int32Value);
-                            break;
-
-                        case "int64":
-                            var int64Value = default(long);
-                            offset += Reader.ReadInt64(data, offset + header, out int64Value);
-                            builder.Field(field.Name, int64Value);
                             break;
 
                         default:
                             throw new NotSupportedException();
                     }
                 }
+                else
+                {
+                    offset += header;
+                }
 
-                endOfStream = header == 0;
+                endOfStream = header == 0 || offset + 1 >= data.Length;
             }
         }
 
@@ -94,10 +95,10 @@ namespace ProtobufParser.Core
                     return type == FieldType.LengthDelimited;
 
                 case "int32":
-                    return type == FieldType.Number32bit;
+                    return type == FieldType.Varint;
 
                 case "int64":
-                    return type == FieldType.Number64bit;
+                    return type == FieldType.Varint;
 
                 case "varint":
                     return type == FieldType.Varint;

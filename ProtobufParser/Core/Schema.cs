@@ -86,9 +86,9 @@ namespace ProtobufParser.Core
             visitor.Visit(this);
         }
 
-        public void Decode(string message, byte[] data, int offset, ObjectBuilder builder)
+        public void Unmarshal(string message, byte[] data, int offset, ObjectBuilder builder)
         {
-            messages.First(m => m.Name == message).Decode(this, data, offset, builder);
+            messages.First(m => m.Name == message).Unmarshal(this, data, offset, builder);
         }
     }
 }

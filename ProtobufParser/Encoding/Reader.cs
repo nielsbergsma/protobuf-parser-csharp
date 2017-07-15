@@ -73,7 +73,7 @@ namespace ProtobufParser.Encoding
             value = new byte[length];
             for (var b = 0; b < length; b++)
             {
-                value[b] = data[offset + b];
+                value[b] = data[offset + read + b];
             }
 
             return read + length;

@@ -10,6 +10,12 @@ namespace ProtobufParser.Parser
 {
     public static class Parser
     {
+        public static Schema ParseSchema(string content)
+        {
+            var tokens = ProtobufLexer.Lex(content);
+            return ParseSchema(tokens);
+        }
+
         public static Schema ParseSchema(TokenStream stream)
         {
             var definition = new Schema();
