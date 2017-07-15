@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ProtobufParser.Encoding
 {
-    public class IncompatibleType : Exception
+    public class IncompatibleTypeException : Exception
     {
-        public IncompatibleType(string message) 
+        public IncompatibleTypeException(string message) 
             : base(message)
         {
         }

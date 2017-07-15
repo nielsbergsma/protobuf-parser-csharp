@@ -51,7 +51,7 @@
     <Compile Include="ElmTypeGenerator.cs" />
     <Compile Include="Encoding\EndOfStreamException.cs" />
     <Compile Include="Encoding\FieldType.cs" />
-    <Compile Include="Encoding\IncompatibleType.cs" />
+    <Compile Include="Encoding\IncompatibleTypeException.cs" />
     <Compile Include="Lexer\CommentIgnoreFilter.cs" />
     <Compile Include="Lexer\IdentifierLexer.cs" />
     <Compile Include="Lexer\KeywordLexer.cs" />

@@ -37,7 +37,9 @@ namespace ProtobufParser
         {
             definition.Package.Accept(this);
 
-            foreach(var import in definition.Imports)
+            AddMessagesUnion();
+
+            foreach (var import in definition.Imports)
             {
                 import.Accept(this);
             }
@@ -50,6 +52,21 @@ namespace ProtobufParser
             foreach (var message in definition.Messages)
             {
                 message.Accept(this);
+            }
+        }
+
+        private void AddMessagesUnion()
+        {
+            output.AppendLine();
+            output.AppendLine();
+            output.AppendLine($"type Messages =");
+
+            var line = 0;
+            foreach (var message in schema.Messages)
+            {
+                var join = line == 0 ? "" : "| ";
+                output.AppendLine($"  {join}{message.Name} {message.Name}{messageNamePostfix}");
+                line++;
             }
         }
 

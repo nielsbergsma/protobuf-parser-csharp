@@ -47,7 +47,7 @@ namespace ProtobufParser.Core
                 {
                     if (!IsExpectedType(field, type))
                     {
-                        throw new IncompatibleType($"Expected field {field.Name} to be of type {type}");
+                        throw new IncompatibleTypeException($"Expected field {field.Name} to be of type {type}");
                     }
 
                     switch(field.Type)
